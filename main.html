@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Wrapper</title>
+    <style>
+        * {
+            background-color: black;
+            color: white;
+            user-select: none;
+        }
+        body {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        #main {
+            width: fit-content;
+            height: fit-content;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        h1 {
+            color: olive;
+        }
+        #quit {
+            background-color: rgba(200, 0, 0, .3);
+            border: rgba(200, 0, 0, .5) 1px solid;
+            padding: 10px 20px;
+            border-radius: 100px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(200, 0, 0, .5);
+            }
+        }
+        #apps {
+            margin: 50px 0;
+        }
+        #apps > button {
+            background-color: rgba(0, 150, 200, .3);
+            border: rgba(0, 150, 200, .5) 1px solid;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(0, 200, 100, .5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>Electron Wrapper</h1>
+        <div id="apps">
+            <button id="WhatsApp">WhatsApp</button>
+            <button id="InstaGram">InstaGram</button>
+            <button id="SnapChat">SnapChat</button>
+        </div>
+        <button id="quit" onclick="window.close()">Quit</button>
+    </div>
+</body>
+</html>
