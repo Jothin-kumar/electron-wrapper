@@ -10,6 +10,7 @@ const ipc = {
         // From render to main.
         'send': [
             'open-app',
+            'to-tray'
         ],
         // From main to render.
         'receive': [],

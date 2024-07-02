@@ -26,7 +26,7 @@
         h1 {
             color: olive;
         }
-        #quit {
+        #hide {
             background-color: rgba(200, 0, 0, .3);
             border: rgba(200, 0, 0, .5) 1px solid;
             padding: 10px 20px;
@@ -65,7 +65,7 @@
             <button id="InstaGram" onclick="openApp('InstaGram')" tabindex="-1">InstaGram</button>
             <button id="SnapChat" onclick="openApp('SnapChat')" tabindex="-1">SnapChat</button>
         </div>
-        <button id="quit" onclick="window.close()" tabindex="-1">Quit</button>
+        <button id="hide" onclick="window.ipcRender.send('to-tray')" tabindex="-1">Hide To Tray</button>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, ipcMain } = require('electron')
+const { app, BrowserWindow, screen, ipcMain, Tray, Menu } = require('electron')
 const nodePath = require("path");
 
 if (!app.requestSingleInstanceLock()) {
@@ -29,6 +29,8 @@ app.whenReady().then(() => {
         height: 500,
         frame: false,
         resizable: false,
+        closable: false,
+        icon: nodePath.join(__dirname, 'icon.png'),
         webPreferences: {
             preload: nodePath.join(__dirname, 'preload.js'),
             nodeIntegration: false,
@@ -54,4 +56,24 @@ app.whenReady().then(() => {
                 break
         }
     })
+    ipcMain.on('to-tray', (evt, arg) => {
+        mainWindow.hide()
+    })
+
+    const tray = new Tray(nodePath.join(__dirname, 'icon.png'))
+    tray.setToolTip('Electron Wrapper')
+    tray.setContextMenu(Menu.buildFromTemplate([
+        {
+            label: 'Show',
+            click: () => {
+                mainWindow.focus()
+            }
+        },
+        {
+            label: 'Quit',
+            click: () => {
+                app.quit()
+            }
+        }
+    ]))
 })
