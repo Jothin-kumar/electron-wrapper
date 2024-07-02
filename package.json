@@ -1,0 +1,15 @@
+{
+  "name": "electron-wrapper",
+  "version": "1.0.0",
+  "description": "Electron Wrapper for WhatsApp, InstaGram, SnapChat, etc...",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jothin Kumar",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.1.0"
+  }
+}
