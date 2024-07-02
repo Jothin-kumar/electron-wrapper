@@ -1,6 +1,10 @@
 const { app, BrowserWindow, screen, ipcMain } = require('electron')
 const nodePath = require("path");
 
+if (!app.requestSingleInstanceLock()) {
+    app.quit()
+}
+
 const createBrowserWindow = (mainWindow, width, height, url) => {
     const win = new BrowserWindow({
         width: width,
@@ -33,6 +37,9 @@ app.whenReady().then(() => {
         }
     })
     mainWindow.loadFile('main.html')
+    app.on('second-instance', () => {
+        mainWindow.show()
+    })
     ipcMain.on('open-app', (evt, arg) => {
         mainWindow.hide()
         switch (arg) {
