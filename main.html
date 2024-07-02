@@ -9,6 +9,7 @@
             background-color: black;
             color: white;
             user-select: none;
+            outline: none;
         }
         body {
             text-align: center;
@@ -46,20 +47,25 @@
             margin: 5px;
             cursor: pointer;
             &:hover {
-                background-color: rgba(0, 200, 100, .5);
+                background-color: rgba(0, 150, 200, .5);
             }
         }
     </style>
+    <script>
+        function openApp(app) {
+            window.ipcRender.send('open-app', app);
+        }
+    </script>
 </head>
 <body>
     <div id="main">
         <h1>Electron Wrapper</h1>
         <div id="apps">
-            <button id="WhatsApp">WhatsApp</button>
-            <button id="InstaGram">InstaGram</button>
-            <button id="SnapChat">SnapChat</button>
+            <button id="WhatsApp" onclick="openApp('WhatsApp')" tabindex="-1">WhatsApp</button>
+            <button id="InstaGram" onclick="openApp('InstaGram')" tabindex="-1">InstaGram</button>
+            <button id="SnapChat" onclick="openApp('SnapChat')" tabindex="-1">SnapChat</button>
         </div>
-        <button id="quit" onclick="window.close()">Quit</button>
+        <button id="quit" onclick="window.close()" tabindex="-1">Quit</button>
     </div>
 </body>
 </html>
