@@ -10,7 +10,7 @@ const createBrowserWindow = (mainWindow, width, height, url) => {
         minWidth: width / 2
     })
 
-    win.loadURL(url, { userAgent: 'Mozilla/5.0 (X11; Linux i686; rv:127.0) Gecko/20100101 Firefox/127.0' })
+    win.loadURL(url, {userAgent: 'Mozilla/5.0 (X11; U; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/122.0.6314.210 Chrome/122.0.6314.210 Safari/537.36'})
     win.on('closed', () => {
         mainWindow.show()
     })
