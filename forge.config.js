@@ -11,8 +11,11 @@ module.exports = {
             name: '@electron-forge/maker-deb',
             config: {
                 maintainer: "Jothin Kumar",
-                homepage: "https://github.com/Jothin-kumar/electron-wrapper"
-            }
+                homepage: "https://github.com/Jothin-kumar/electron-wrapper",
+                options: {
+                    icon: "icon.png"
+                }
+                }
         }
     ],
     plugins: [
