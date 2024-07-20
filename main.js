@@ -5,19 +5,31 @@ if (!app.requestSingleInstanceLock()) {
     app.quit()
 }
 
+function showAndFocus(window) {
+    window.show()
+    window.focus()
+}
+
 const createBrowserWindow = (mainWindow, width, height, url) => {
     const win = new BrowserWindow({
         width: width,
         height: height,
         autoHideMenuBar: true,
         minHeight: height / 2,
-        minWidth: width / 2
+        minWidth: width / 2,
+        show: false
     })
 
     win.loadURL(url, {userAgent: 'Mozilla/5.0 (X11; U; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/122.0.6314.210 Chrome/122.0.6314.210 Safari/537.36'})
-    win.on('closed', () => {
-        mainWindow.show()
-    })
+    const f = (evt) => {
+        evt.preventDefault()
+        win.hide()
+        showAndFocus(mainWindow)
+    }
+    win.on('close', f)
+    win.on('minimize', f)
+
+    return win
 }
 
 PrimaryScreen = {}
@@ -40,19 +52,26 @@ app.whenReady().then(() => {
     })
     mainWindow.loadFile('main.html')
     app.on('second-instance', () => {
-        mainWindow.show()
+        showAndFocus(mainWindow)
     })
+    mainWindow.on('close', (evt) => {
+        evt.preventDefault()
+        mainWindow.hide()
+    })
+    const WhatsApp = createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://web.whatsapp.com')
+    const InstaGram = createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://instagram.com')
+    const SnapChat = createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://web.snapchat.com/')
     ipcMain.on('open-app', (evt, arg) => {
         mainWindow.hide()
         switch (arg) {
             case 'WhatsApp':
-                createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://web.whatsapp.com')
+                showAndFocus(WhatsApp)
                 break
             case 'InstaGram':
-                createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://instagram.com')
+                showAndFocus(InstaGram)
                 break
             case 'SnapChat':
-                createBrowserWindow(mainWindow, PrimaryScreen.Resolution.width, PrimaryScreen.Resolution.height, 'https://web.snapchat.com/')
+                showAndFocus(SnapChat)
                 break
         }
     })
@@ -62,18 +81,7 @@ app.whenReady().then(() => {
 
     const tray = new Tray(nodePath.join(__dirname, 'icon.png'))
     tray.setToolTip('Electron Wrapper')
-    tray.setContextMenu(Menu.buildFromTemplate([
-        {
-            label: 'Show',
-            click: () => {
-                mainWindow.focus()
-            }
-        },
-        {
-            label: 'Quit',
-            click: () => {
-                app.quit()
-            }
-        }
-    ]))
+    tray.on('click', () => {
+        showAndFocus(mainWindow)
+    })
 })
