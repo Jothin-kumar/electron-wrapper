@@ -1,5 +1,6 @@
 const { app, BrowserWindow, screen, ipcMain} = require('electron')
 const nodePath = require("path");
+const shell = require('electron').shell
 
 if (!app.requestSingleInstanceLock()) {
     app.quit()
@@ -28,6 +29,10 @@ const createBrowserWindow = (mainWindow, width, height, url) => {
     }
     win.on('close', f)
     win.on('minimize', f)
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url)
+        return { action: 'deny' }
+    })
 
     return win
 }
