@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen, ipcMain, Tray, Menu } = require('electron')
+const { app, BrowserWindow, screen, ipcMain} = require('electron')
 const nodePath = require("path");
 
 if (!app.requestSingleInstanceLock()) {
@@ -75,13 +75,7 @@ app.whenReady().then(() => {
                 break
         }
     })
-    ipcMain.on('to-tray', (evt, arg) => {
+    ipcMain.on('hide', (evt, arg) => {
         mainWindow.hide()
-    })
-
-    const tray = new Tray(nodePath.join(__dirname, 'icon.png'))
-    tray.setToolTip('Electron Wrapper')
-    tray.on('click', () => {
-        showAndFocus(mainWindow)
     })
 })
